@@ -71,6 +71,8 @@ class GaloisField:
 class RootGaloisField(GaloisField):
     def __init__(self, root: int) -> None:
         super().__init__()
+        if not RootGaloisField._is_prime(root):
+            raise ValueError("Root must be prime")
         self._equivalence_classes = [EquivalenceClass(n, self) for n in range(0, root)]
 
     def get_p(self) -> int:
@@ -92,3 +94,14 @@ class RootGaloisField(GaloisField):
 
     def __repr__(self) -> str:
         return f'GF({self.cardinality})'
+
+    @staticmethod
+    def _is_prime(n):
+        if n == 1:
+            return False
+        i = 2
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 1
+        return True

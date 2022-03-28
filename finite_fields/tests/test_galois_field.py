@@ -50,3 +50,7 @@ class TestRootGaloisField(unittest.TestCase):
     def test_one(self):
         gf = RootGaloisField(13)
         self.assertIn(1, gf.one)
+
+    def test_prime_checking(self):
+        with self.assertRaises(ValueError):
+            gf = RootGaloisField(6)
