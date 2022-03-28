@@ -1,6 +1,7 @@
 import random
 from typing import List
 
+
 class EquivalenceClass:
     def __init__(self, class_repr: int, field: 'GaloisField') -> None:
         self._class_repr: int = class_repr
@@ -40,6 +41,24 @@ class GaloisField:
 
     cardinality = property(fget=get_cardinality)
 
+    def get_p(self) -> int:
+        raise NotImplementedError()
+
+    p = property(fget=lambda self: self.get_p())
+
+    def get_m(self) -> int:
+        raise NotImplementedError()
+
+    m = property(fget=lambda self: self.get_m())
+
+    @property
+    def zero(self):
+        return self._equivalence_classes[0]
+
+    @property
+    def one(self):
+        return self._equivalence_classes[1]
+
     def __contains__(self, equivalence_class):
         return equivalence_class in self._equivalence_classes
 
@@ -53,6 +72,12 @@ class RootGaloisField(GaloisField):
     def __init__(self, root: int) -> None:
         super().__init__()
         self._equivalence_classes = [EquivalenceClass(n, self) for n in range(0, root)]
+
+    def get_p(self) -> int:
+        return self.cardinality
+
+    def get_m(self) -> int:
+        return 1
 
     def add(self, op1: EquivalenceClass, op2: EquivalenceClass):
         res_repr = (op1.representative + op2.representative) % self.cardinality
