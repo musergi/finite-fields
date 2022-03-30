@@ -30,6 +30,9 @@ class EquivalenceClass:
     def __truediv__(self, other: 'EquivalenceClass'):
         return self._field.divide(self, other)
 
+    def __invert__(self):
+        return self._field.inverse(self)
+
     def __eq__(self, other):
         return self._class_repr == other._class_repr and \
             self._field == other._field
@@ -91,15 +94,15 @@ class RootGaloisField(GaloisField):
         return 1
 
     def add(self, op1: EquivalenceClass, op2: EquivalenceClass):
-        res_repr = (op1.representative + op2.representative) % self.cardinality
+        res_repr = (op1.representative + op2.representative) % self.p
         return EquivalenceClass(res_repr, self)
 
     def substract(self, op1: EquivalenceClass, op2: EquivalenceClass):
-        res_repr = (op1.representative - op2.representative) % self.cardinality
+        res_repr = (op1.representative - op2.representative) % self.p
         return EquivalenceClass(res_repr, self)
 
     def multiply(self, op1: EquivalenceClass, op2:EquivalenceClass):
-        res_repr = (op1.representative * op2.representative) % self.cardinality
+        res_repr = (op1.representative * op2.representative) % self.p
         return EquivalenceClass(res_repr, self)
     
     def divide(self, op1: EquivalenceClass, op2:EquivalenceClass):
@@ -110,7 +113,7 @@ class RootGaloisField(GaloisField):
             _p = self.p
         a = op.representative
         if a == 1:
-            return EquivalenceClass(_y1, self)
+            return EquivalenceClass(_y1 % self.p, self)
         q = _p // a
         return self.inverse(
                 op=EquivalenceClass(_p - q * a, self),

@@ -48,6 +48,19 @@ class TestRootGaloisField(unittest.TestCase):
         self.assertEqual(gf[6] // gf[1], gf[6])
         self.assertEqual(gf[10] / gf[2], gf[5])
 
+    def test_inverse(self):
+        gf = RootGaloisField(17)
+        self.assertEqual(gf.inverse(gf[1]), gf[1])
+        self.assertEqual(gf.inverse(gf[2]), gf[9])
+        self.assertEqual(gf.inverse(gf[3]), gf[6])
+        self.assertEqual(gf.inverse(gf[9]), gf[2])
+        self.assertEqual(gf.inverse(gf[6]), gf[3])
+        self.assertEqual(~gf[1], gf[1])
+        self.assertEqual(~gf[2], gf[9])
+        self.assertEqual(~gf[3], gf[6])
+        self.assertEqual(~gf[9], gf[2])
+        self.assertEqual(~gf[6], gf[3])
+
     def test_parameters(self):
         gf1 = RootGaloisField(5)
         self.assertEqual(gf1.p, 5)
