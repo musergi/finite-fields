@@ -32,6 +32,22 @@ class TestRootGaloisField(unittest.TestCase):
         self.assertEqual(gf[4], gf.substract(gf[1], gf[2]))
         self.assertEqual(gf[4], gf[1] - gf[2])
 
+    def test_multiplication(self):
+        gf = RootGaloisField(17)
+        self.assertEqual(gf.multiply(gf[3], gf[2]), gf[6])
+        self.assertEqual(gf.multiply(gf[10], gf[2]), gf[3])
+        self.assertEqual(gf[3] * gf[2], gf[6])
+        self.assertEqual(gf[10] * gf[2], gf[3])
+
+    def test_division(self):
+        gf = RootGaloisField(17)
+        self.assertEqual(gf.divide(gf[6], gf[1]), gf[6])
+        self.assertEqual(gf.divide(gf[10], gf[2]), gf[5])
+        self.assertEqual(gf[6] / gf[1], gf[6])
+        self.assertEqual(gf[10] // gf[2], gf[5])
+        self.assertEqual(gf[6] // gf[1], gf[6])
+        self.assertEqual(gf[10] / gf[2], gf[5])
+
     def test_parameters(self):
         gf1 = RootGaloisField(5)
         self.assertEqual(gf1.p, 5)
@@ -44,12 +60,17 @@ class TestRootGaloisField(unittest.TestCase):
         gf = RootGaloisField(13)
         self.assertIn(0, gf.zero)
         self.assertEqual(gf.zero.representative, 0)
-        random_element = gf.random()
-        self.assertEqual(random_element + gf.zero, random_element)
+        for element in gf:
+            self.assertEqual(element + gf.zero, element)
 
     def test_one(self):
         gf = RootGaloisField(13)
         self.assertIn(1, gf.one)
+        for element in gf:
+            if element != gf.zero:
+                self.assertEqual(element * gf.one, element)
+            else:
+                self.assertEqual(element * gf.one, gf.zero)
 
     def test_prime_checking(self):
         with self.assertRaises(ValueError):
