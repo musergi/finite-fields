@@ -10,23 +10,23 @@ class RootGaloisField(GaloisField):
         self._equivalence_classes = [RootEquivalenceClass(n, self) for n in range(0, root)]
 
     @property
-    def p(self) -> int:
-        return self.q
+    def characteristic(self) -> int:
+        return self.cardinality
 
     @property
-    def m(self) -> int:
+    def dimension(self) -> int:
         return 1
 
     def add(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative + op2.representative) % self.p
+        res_repr = (op1.representative + op2.representative) % self.characteristic
         return RootEquivalenceClass(res_repr, self)
 
     def substract(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative - op2.representative) % self.p
+        res_repr = (op1.representative - op2.representative) % self.characteristic
         return RootEquivalenceClass(res_repr, self)
 
     def multiply(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative * op2.representative) % self.p
+        res_repr = (op1.representative * op2.representative) % self.characteristic
         return RootEquivalenceClass(res_repr, self)
 
     def divide(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
@@ -34,10 +34,10 @@ class RootGaloisField(GaloisField):
 
     def inverse(self, op: RootEquivalenceClass, _p: int = None, _y1: int = 1, _y2: int = 0):
         if _p is None:
-            _p = self.p
+            _p = self.characteristic
         a = op.representative
         if a == 1:
-            return RootEquivalenceClass(_y1 % self.p, self)
+            return RootEquivalenceClass(_y1 % self.characteristic, self)
         q = _p // a
         return self.inverse(
             op=RootEquivalenceClass(_p - q * a, self),
@@ -46,7 +46,7 @@ class RootGaloisField(GaloisField):
             _y2=_y1)
 
     def __eq__(self, other):
-        return self.cardinality == other.cardinality
+        return self.characteristic == other.characteristic
 
     def __repr__(self) -> str:
         return f'GF({self.cardinality})'

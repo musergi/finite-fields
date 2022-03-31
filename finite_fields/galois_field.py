@@ -43,34 +43,85 @@ class GaloisField:
         return random.choice(self._equivalence_classes)
 
     @property
-    def p(self) -> int:
+    def characteristic(self) -> int:
+        """Gets the characteristic associated with the field.
+
+        The prime p is referred as the characteristic of the field. In the
+        case of a root Galois Field the characteristic fully defines the field
+        as all arithmetic is done modulo the characteristic.
+
+        Returns
+        -------
+        int
+            The characteristic of the field
+        """
         raise NotImplementedError()
 
     @property
-    def m(self) -> int:
-        raise NotImplementedError()
+    def dimension(self) -> int:
+        """Gets the dimension of the field.
 
-    @property
-    def q(self) -> int:
-        return len(self._equivalence_classes)
+        For root Galois Field the dimension is 1. For extended Galois Field it
+        can be interpreted as the degree of the used polynomial for generating
+        the field. It is called dimension as it represents the vector
+        extension of the root Galois Field.
+
+        Returns
+        -------
+        int
+            The dimension of the field
+        """
+        raise NotImplementedError()
 
     @property
     def cardinality(self) -> int:
-        return self.q
+        """Gets the cardinality of the field.
+
+        This value can easily be calculated as p^m. And it represents the
+        number of elements in the field.
+
+        Returns
+        -------
+        int
+            The cardinality of the field
+        """
+        return len(self._equivalence_classes)
 
     @property
-    def zero(self):
+    def zero(self) -> EquivalenceClass:
+        """Get the zero element.
+
+        This value represents the additive identity for the field. Meaning that
+        it is the identity element for the group formed by the set and the
+        addition operation.
+
+        Returns
+        -------
+        EquivalenceClass
+            The equivalence class corresponding to the zero element
+        """
         return self._equivalence_classes[0]
 
     @property
-    def one(self):
+    def one(self) -> EquivalenceClass:
+        """Get the one element.
+
+        This value represents the multiplicative identity for the field.
+        Meaning that it is the identity element for the group formed by the set
+        and the multiplication operation.
+
+        Returns
+        -------
+        EquivalenceClass
+            The equivalence class corresponding to the one element
+        """
         return self._equivalence_classes[1]
 
-    def __contains__(self, equivalence_class):
+    def __contains__(self, equivalence_class: EquivalenceClass) -> bool:
         return equivalence_class in self._equivalence_classes
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> EquivalenceClass:
         return self._equivalence_classes[index]
 
     def __repr__(self) -> str:
-        return f'GF({self.q})'
+        return f'GF({self.cardinality})'

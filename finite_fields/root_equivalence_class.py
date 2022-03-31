@@ -6,7 +6,7 @@ class RootEquivalenceClass:
         self._field: 'GaloisField' = field
 
     def __contains__(self, element) -> bool:
-        return element % self._field.q == self._class_repr
+        return element % self._field.characteristic == self._class_repr
 
     @property
     def representative(self) -> int:

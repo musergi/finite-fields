@@ -45,9 +45,9 @@ class TestRootGaloisField(unittest.TestCase):
         self.assertEqual(gf.divide(gf[6], gf[1]), gf[6])
         self.assertEqual(gf.divide(gf[10], gf[2]), gf[5])
         self.assertEqual(gf[6] / gf[1], gf[6])
-        self.assertEqual(gf[10] // gf[2], gf[5])
-        self.assertEqual(gf[6] // gf[1], gf[6])
         self.assertEqual(gf[10] / gf[2], gf[5])
+        self.assertEqual(gf[6] // gf[1], gf[6])
+        self.assertEqual(gf[10] // gf[2], gf[5])
 
     def test_inverse(self):
         gf = RootGaloisField(17)
@@ -64,11 +64,11 @@ class TestRootGaloisField(unittest.TestCase):
 
     def test_parameters(self):
         gf1 = RootGaloisField(5)
-        self.assertEqual(gf1.p, 5)
-        self.assertEqual(gf1.m, 1)
+        self.assertEqual(gf1.characteristic, 5)
+        self.assertEqual(gf1.dimension, 1)
         gf2 = RootGaloisField(17)
-        self.assertEqual(gf2.p, 17)
-        self.assertEqual(gf2.m, 1)
+        self.assertEqual(gf2.characteristic, 17)
+        self.assertEqual(gf2.dimension, 1)
 
     def test_zero(self):
         gf = RootGaloisField(13)
