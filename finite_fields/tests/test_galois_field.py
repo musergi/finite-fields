@@ -1,5 +1,6 @@
 import unittest
-from finite_fields.galois_field import RootGaloisField
+from finite_fields.root_galois_field import RootGaloisField
+
 
 class TestRootGaloisField(unittest.TestCase):
     def test_cardinality(self):
