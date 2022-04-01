@@ -73,7 +73,6 @@ class TestRootGaloisField(unittest.TestCase):
     def test_zero(self):
         gf = RootGaloisField(13)
         self.assertIn(0, gf.zero)
-        self.assertEqual(gf.zero.representative, 0)
         for element in gf:
             self.assertEqual(element + gf.zero, element)
 

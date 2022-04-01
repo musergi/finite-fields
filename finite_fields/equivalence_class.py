@@ -1,8 +1,4 @@
 class EquivalenceClass:
-    @property
-    def representative(self) -> int:
-        raise NotImplementedError()
-
     def __contains__(self, element) -> bool:
         raise NotImplementedError()
 

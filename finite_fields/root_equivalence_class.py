@@ -8,10 +8,6 @@ class RootEquivalenceClass:
     def __contains__(self, element) -> bool:
         return element % self._field.characteristic == self._class_repr
 
-    @property
-    def representative(self) -> int:
-        return self._class_repr
-
     def __add__(self, other: 'RootEquivalenceClass') -> 'RootEquivalenceClass':
         return self._field.add(self, other)
 
