@@ -123,6 +123,13 @@ class GaloisField:
         In order for this function to work it is required that the
         _equivalence_classes attribute contains all the elements of the set.
 
+        
+         Parameters
+        ----------
+        equivalence_class
+            Equivalence class to be tested for inclusion in the field.
+
+
         Returns
         -------
         bool
@@ -140,6 +147,12 @@ class GaloisField:
         yield the same output. It is important to note that a default
         implementation is provided if the _equivalence_classes attribute is
         defined.
+
+        Parameters
+        ----------
+        index
+            Index of the equivalence class to be fetched must be between 0
+            the cardinality - 1.
 
         Returns
         -------
