@@ -53,7 +53,7 @@ class GaloisField:
         Returns
         -------
         int
-            The characteristic of the field
+            The characteristic of the field.
         """
         raise NotImplementedError()
 
@@ -69,7 +69,7 @@ class GaloisField:
         Returns
         -------
         int
-            The dimension of the field
+            The dimension of the field.
         """
         raise NotImplementedError()
 
@@ -83,7 +83,7 @@ class GaloisField:
         Returns
         -------
         int
-            The cardinality of the field
+            The cardinality of the field.
         """
         return len(self._equivalence_classes)
 
@@ -98,7 +98,7 @@ class GaloisField:
         Returns
         -------
         EquivalenceClass
-            The equivalence class corresponding to the zero element
+            The equivalence class corresponding to the zero element.
         """
         return self._equivalence_classes[0]
 
@@ -113,15 +113,47 @@ class GaloisField:
         Returns
         -------
         EquivalenceClass
-            The equivalence class corresponding to the one element
+            The equivalence class corresponding to the one element.
         """
         return self._equivalence_classes[1]
 
     def __contains__(self, equivalence_class: EquivalenceClass) -> bool:
+        """Checks if an equivalence class is part of the field.
+        
+        In order for this function to work it is required that the
+        _equivalence_classes attribute contains all the elements of the set.
+
+        Returns
+        -------
+        bool
+            True if the equivalence class is in the set, False otherwise.
+        """
         return equivalence_class in self._equivalence_classes
 
     def __getitem__(self, index: int) -> EquivalenceClass:
+        """Gets the equivalence class with the passed index.
+
+        As there is no notion of order in fields the only ensured property of
+        the indices is that element 0 is the zero equivalence class and that
+        element 1 is the one equivalence class. Even if not ensured the output
+        of this function is deterministic therefore the same index will always
+        yield the same output. It is important to note that a default
+        implementation is provided if the _equivalence_classes attribute is
+        defined.
+
+        Returns
+        -------
+        EquivalenceClass
+            The equivalence class representing the index.
+        """
         return self._equivalence_classes[index]
 
     def __repr__(self) -> str:
+        """Gets the string representation of the field.
+
+        Returns
+        -------
+        str
+            The string representation
+        """
         return f'GF({self.cardinality})'
