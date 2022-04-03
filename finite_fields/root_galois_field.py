@@ -1,4 +1,4 @@
-from finite_fields.galois_field import GaloisField
+from finite_fields.galois_field import GaloisField, EquivalenceClass
 from finite_fields.root_equivalence_class import RootEquivalenceClass
 
 
@@ -17,33 +17,20 @@ class RootGaloisField(GaloisField):
     def dimension(self) -> int:
         return 1
 
-    def add(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative + op2.representative) % self.characteristic
-        return RootEquivalenceClass(res_repr, self)
+    def add(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
+        return op1 + op2
 
-    def substract(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative - op2.representative) % self.characteristic
-        return RootEquivalenceClass(res_repr, self)
+    def substract(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
+        return op1 - op2
 
-    def multiply(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        res_repr = (op1.representative * op2.representative) % self.characteristic
-        return RootEquivalenceClass(res_repr, self)
+    def multiply(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
+        return op1 * op2
 
-    def divide(self, op1: RootEquivalenceClass, op2: RootEquivalenceClass):
-        return self.multiply(op1, self.inverse(op2))
+    def divide(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
+        return op1 / op2
 
-    def inverse(self, op: RootEquivalenceClass, _p: int = None, _y1: int = 1, _y2: int = 0):
-        if _p is None:
-            _p = self.characteristic
-        a = op.representative
-        if a == 1:
-            return RootEquivalenceClass(_y1 % self.characteristic, self)
-        q = _p // a
-        return self.inverse(
-            op=RootEquivalenceClass(_p - q * a, self),
-            _p=a,
-            _y1=_y2 - q * _y1,
-            _y2=_y1)
+    def inverse(self, op: EquivalenceClass) -> EquivalenceClass:
+        return ~op
 
     def __eq__(self, other):
         return self.characteristic == other.characteristic
