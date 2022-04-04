@@ -30,11 +30,11 @@ class RootEquivalenceClass:
         class_repr = self._extended_euclid(self._class_repr, self._field.characteristic)
         return RootEquivalenceClass(class_repr, self._field)
 
-    def _extended_euclid(a: int, p: int, y1: int=1, y2: int=0) -> int:
+    def _extended_euclid(self, a: int, p: int, y1: int=1, y2: int=0) -> int:
         if a == 1:
             return y1
         q = p // a
-        return _extended_euclid(p - q * a, a, y2 - q * y1, y1)
+        return self._extended_euclid(p - q * a, a, y2 - q * y1, y1)
 
     def __eq__(self, other):
         return self._class_repr == other._class_repr and \
