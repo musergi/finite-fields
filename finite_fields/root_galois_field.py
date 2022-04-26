@@ -17,21 +17,6 @@ class RootGaloisField(GaloisField):
     def dimension(self) -> int:
         return 1
 
-    def add(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
-        return op1 + op2
-
-    def substract(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
-        return op1 - op2
-
-    def multiply(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
-        return op1 * op2
-
-    def divide(self, op1: EquivalenceClass, op2: EquivalenceClass) -> EquivalenceClass:
-        return op1 / op2
-
-    def inverse(self, op: EquivalenceClass) -> EquivalenceClass:
-        return ~op
-
     def __eq__(self, other):
         return self.characteristic == other.characteristic
 
