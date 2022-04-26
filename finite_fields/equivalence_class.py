@@ -6,6 +6,20 @@ class EquivalenceClass:
     interface to be implemented by all subclasses.
     """
 
+    @property
+    def is_zero(self) -> bool:
+        """Test if the equivalence class is zero.
+
+        Test if the equivalence class is the identity element in the additive
+        group.
+
+        Returns
+        -------
+        bool:
+            True is it is zero, False otherwise
+        """
+        raise NotImplementedError()
+
     def __contains__(self, element: int) -> bool:
         """Tests if an integer is in the equivalence class.
 

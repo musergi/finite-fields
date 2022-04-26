@@ -8,6 +8,10 @@ class RootEquivalenceClass:
             self._class_repr: int = class_repr
         self._field: 'GaloisField' = field
 
+    @property
+    def is_zero(self) -> bool:
+        return self == self._field.zero
+
     def __contains__(self, element: int) -> bool:
         return element % self._field.characteristic == self._class_repr
 
