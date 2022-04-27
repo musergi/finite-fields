@@ -1,4 +1,5 @@
 from itertools import zip_longest
+from typing import Callable
 
 class Polynomial:
     def __init__(self, coefficients):
@@ -14,7 +15,7 @@ class Polynomial:
     def __len__(self) -> int:
         return len(self.coefficients)
 
-    def __add__(self, other: 'Polynomial') -> 'Polynomial':
+    def _elementwise(self, other: 'Polynomial', func: Callable):
         coefficients = []
         for c1, c2 in zip_longest(self.coefficients, other.coefficients):
             if c1 is None:
@@ -22,8 +23,14 @@ class Polynomial:
             elif c2 is None:
                 coefficients.append(c1)
             else:
-                coefficients.append(c1 + c2)
+                coefficients.append(func(c1, c2))
         return Polynomial(coefficients)
+
+    def __add__(self, other: 'Polynomial') -> 'Polynomial':
+        return self._elementwise(other, lambda x, y: x + y)
+    
+    def __sub__(self, other: 'Polynomial') -> 'Polynomial':
+        return self._elementwise(other, lambda x, y: x - y)
     
     def __eq__(self, other: 'Polynomial') -> bool:
         if len(self) != len(other):

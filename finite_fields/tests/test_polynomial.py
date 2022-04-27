@@ -32,3 +32,10 @@ class TestPolinomial(unittest.TestCase):
         p2 = Polynomial([gf[2], gf[4], gf[1]])
         expected = Polynomial([gf[0], gf[1], gf[1]])
         self.assertEqual(p1 + p2, expected)
+
+    def test_substraction(self):
+        gf = gf = RootGaloisField(5)
+        p1 = Polynomial([gf[1], gf[1], gf[1]])
+        p2 = Polynomial([gf[4], gf[1], gf[2]])
+        expected = Polynomial([gf[2], gf[0], gf[4]])
+        self.assertEqual(p1 - p2, expected)
