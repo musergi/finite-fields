@@ -7,6 +7,20 @@ class EquivalenceClass:
     """
 
     @property
+    def zero(self) -> 'EquivalenceClass':
+        """Zero element of the field of the equivalence class.
+        
+        Gets the identity of the additive group in the field which contains
+        this equivalence class.
+        
+        Returns
+        -------
+        EquivalenceClass:
+            Equivalence class representing the zero element.
+        """
+        raise NotImplementedError()
+
+    @property
     def is_zero(self) -> bool:
         """Test if the equivalence class is zero.
 
@@ -18,7 +32,7 @@ class EquivalenceClass:
         bool:
             True is it is zero, False otherwise
         """
-        raise NotImplementedError()
+        return self == self.zero
 
     def __contains__(self, element: int) -> bool:
         """Tests if an integer is in the equivalence class.

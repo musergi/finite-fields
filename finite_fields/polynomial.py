@@ -31,6 +31,13 @@ class Polynomial:
     
     def __sub__(self, other: 'Polynomial') -> 'Polynomial':
         return self._elementwise(other, lambda x, y: x - y)
+
+    def __mul__(self, other: 'Polynomial') -> 'Polynomial':
+        result = [self.coefficients[0].zero] * (self.degree + other.degree + 1)
+        for deg1, c1 in enumerate(self.coefficients):
+            for deg2, c2 in enumerate(other.coefficients):
+                result[deg1 + deg2] += c1 * c2
+        return Polynomial(result)
     
     def __eq__(self, other: 'Polynomial') -> bool:
         if len(self) != len(other):

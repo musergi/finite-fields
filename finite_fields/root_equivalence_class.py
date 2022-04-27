@@ -1,6 +1,8 @@
+from numpy import zeros
+from finite_fields.equivalence_class import EquivalenceClass
 from finite_fields.galois_field import GaloisField
 
-class RootEquivalenceClass:
+class RootEquivalenceClass(EquivalenceClass):
     def __init__(self, class_repr: int, field: 'GaloisField') -> None:
         if field.characteristic != 0:
             self._class_repr: int = class_repr % field.characteristic
@@ -9,8 +11,8 @@ class RootEquivalenceClass:
         self._field: 'GaloisField' = field
 
     @property
-    def is_zero(self) -> bool:
-        return self == self._field.zero
+    def zero(self) -> 'EquivalenceClass':
+        return self._field.zero
 
     def __contains__(self, element: int) -> bool:
         return element % self._field.characteristic == self._class_repr
