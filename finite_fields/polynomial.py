@@ -1,3 +1,5 @@
+from itertools import zip_longest
+
 class Polynomial:
     def __init__(self, coefficients):
         self.coefficients = coefficients
@@ -14,8 +16,13 @@ class Polynomial:
 
     def __add__(self, other: 'Polynomial') -> 'Polynomial':
         coefficients = []
-        for c1, c2 in zip(self.coefficients, other.coefficients):
-            coefficients.append(c1 + c2)
+        for c1, c2 in zip_longest(self.coefficients, other.coefficients):
+            if c1 is None:
+                coefficients.append(c2)
+            elif c2 is None:
+                coefficients.append(c1)
+            else:
+                coefficients.append(c1 + c2)
         return Polynomial(coefficients)
     
     def __eq__(self, other: 'Polynomial') -> bool:
@@ -25,3 +32,7 @@ class Polynomial:
             if c1 != c2:
                 return False
         return True
+
+    def __repr__(self) -> str:
+        monomes = [f'({coef})x^{index}' for index, coef in enumerate(self.coefficients)]
+        return " + ".join(monomes)

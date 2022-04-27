@@ -25,3 +25,10 @@ class TestPolinomial(unittest.TestCase):
         p2 = Polynomial([gf[4], gf[1], gf[2]])
         expected = Polynomial([gf[0], gf[2], gf[3]])
         self.assertEqual(p1 + p2, expected)
+    
+    def test_different_length_addition(self):
+        gf = RootGaloisField(5)
+        p1 = Polynomial([gf[3], gf[2]])
+        p2 = Polynomial([gf[2], gf[4], gf[1]])
+        expected = Polynomial([gf[0], gf[1], gf[1]])
+        self.assertEqual(p1 + p2, expected)
