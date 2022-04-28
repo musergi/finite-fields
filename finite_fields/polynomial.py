@@ -64,5 +64,12 @@ class Polynomial:
         return True
 
     def __repr__(self) -> str:
-        monomes = [f'({coef})x^{index}' for index, coef in enumerate(self.coefficients)]
+        monomes = [f'({coef}){_get_x_repr(index)}' for index, coef in enumerate(self.coefficients)]
         return " + ".join(monomes)
+
+def _get_x_repr(degree):
+    if degree == 0:
+        return ''
+    if degree == 1:
+        return 'x'
+    return f'x^{degree}'
