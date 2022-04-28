@@ -51,6 +51,18 @@ class TestPolinomial(unittest.TestCase):
         p2 = Polynomial([gf[2], gf[0], gf[3]])
         expected = Polynomial([gf[4], gf[2], gf[2], gf[1], gf[4], gf[2]])
         self.assertEqual(p1 * p2, expected)
+
+    def test_null_multiplication(self):
+        gf = RootGaloisField(5)
+        p1 = Polynomial([gf[2], gf[1], gf[3], gf[4]])
+        p2 = Polynomial([])
+        self.assertEqual(p1 * p2, p2)
+    
+    def test_one_multiplication(self):
+        gf = RootGaloisField(5)
+        p1 = Polynomial([gf[2], gf[1], gf[3], gf[4]])
+        p2 = Polynomial([gf.one])
+        self.assertEqual(p1 * p2, p1)
     
     def test_division(self):
         gf = RootGaloisField(5)
