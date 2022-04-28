@@ -4,9 +4,13 @@ from typing import Callable
 class Polynomial:
     def __init__(self, coefficients):
         self.coefficients = coefficients
-        if len(self.coefficients) > 1:
-            while self.coefficients[-1].is_zero:
-                self.coefficients.pop()
+        while len(self.coefficients) >=  1 and self.coefficients[-1].is_zero:
+            self.coefficients.pop()
+
+    @staticmethod
+    def fromMonomial(coefficient, degree):
+        zero_pad = [coefficient.zero] * degree
+        return Polynomial(zero_pad + [coefficient])
 
     @property
     def degree(self) -> int:
@@ -37,6 +41,18 @@ class Polynomial:
         for deg1, c1 in enumerate(self.coefficients):
             for deg2, c2 in enumerate(other.coefficients):
                 result[deg1 + deg2] += c1 * c2
+        return Polynomial(result)
+
+    def __truediv__(self, other: 'Polynomial') -> 'Polynomial':
+        result = []
+        divided = self
+        zero = self.coefficients[0].zero
+        while divided.degree >= other.degree:
+            coefficient = divided.coefficients[-1] / other.coefficients[-1]
+            degree = divided.degree - other.degree
+            quotient =  Polynomial.fromMonomial(coefficient, degree)
+            divided = divided - other * quotient
+            result.insert(0, coefficient)
         return Polynomial(result)
     
     def __eq__(self, other: 'Polynomial') -> bool:

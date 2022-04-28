@@ -47,4 +47,4 @@ class RootEquivalenceClass(EquivalenceClass):
                self._field == other._field
 
     def __repr__(self):
-        return f'{self._class_repr} in GF({self._field.cardinality})'
+        return f'{self._class_repr}'
