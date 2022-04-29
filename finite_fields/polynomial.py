@@ -1,5 +1,5 @@
 from itertools import zip_longest
-from typing import Callable
+from typing import Callable, Tuple
 
 class Polynomial:
     def __init__(self, coefficients):
@@ -43,7 +43,7 @@ class Polynomial:
                 result[deg1 + deg2] += c1 * c2
         return Polynomial(result)
 
-    def __truediv__(self, other: 'Polynomial') -> 'Polynomial':
+    def _divide(self, other: 'Polynomial') -> Tuple['Polynomial', 'Polynomial']:
         result = []
         divided = self
         zero = self.coefficients[0].zero
@@ -53,7 +53,15 @@ class Polynomial:
             quotient =  Polynomial.fromMonomial(coefficient, degree)
             divided = divided - other * quotient
             result.insert(0, coefficient)
-        return Polynomial(result)
+        return Polynomial(result), divided
+
+    def __truediv__(self, other: 'Polynomial') -> 'Polynomial':
+        result, _ = self._divide(other)
+        return result
+
+    def __mod__(self, other: 'Polynomial') -> 'Polynomial':
+        _, result = self._divide(other)
+        return result
     
     def __eq__(self, other: 'Polynomial') -> bool:
         if len(self) != len(other):
