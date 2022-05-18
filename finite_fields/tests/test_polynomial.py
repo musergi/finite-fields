@@ -77,3 +77,12 @@ class TestPolinomial(unittest.TestCase):
         p2 = Polynomial([gf[3], gf[1]])
         expected = Polynomial([])
         self.assertEqual(p1 % p2, expected)
+
+    def test_monic(self):
+        gf = RootGaloisField(5)
+        p1 = Polynomial([gf[2], gf[3], gf[2]])
+        self.assertFalse(p1.is_monic)
+        p2 = Polynomial([gf[2], gf[3], gf.one])
+        self.assertTrue(p2.is_monic)
+        p3 = Polynomial([gf[4], gf[1], gf.one, gf.zero])
+        self.assertTrue(p3.is_monic)

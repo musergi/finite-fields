@@ -1,4 +1,5 @@
 import unittest
+import random
 from finite_fields import RootGaloisField
 
 
@@ -22,6 +23,8 @@ class TestRootGaloisField(unittest.TestCase):
         gf = RootGaloisField(5)
         for index, equivalence_class in enumerate(gf):
             self.assertIn(index, equivalence_class)
+            r = random.randint(-100, 100)
+            self.assertIn(index + 5 * r, equivalence_class)
 
     def test_addition(self):
         gf = RootGaloisField(5)

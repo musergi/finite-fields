@@ -30,9 +30,35 @@ class EquivalenceClass:
         Returns
         -------
         bool:
-            True is it is zero, False otherwise
+            True is it is zero, False otherwise.
         """
         return self == self.zero
+
+    @property
+    def one(self) -> 'EquivalenceClass':
+        """One element of the field of the equivalence class.
+
+        Gets the identity of the multiplicative group in the field which
+        contains this equivalence class.
+
+        Returns
+        -------
+        EquivalenceClass:
+            Equivalence class representing the one element."""
+
+    @property
+    def is_one(self) -> bool:
+        """Test if the equivalence class is one.
+
+        Test if the equivalence class is the identity element in the
+        multiplicative group.
+
+        Returns
+        -------
+        bool:
+            True is it is one, False otherwise.
+        """
+        return self == self.one
 
     def __contains__(self, element: int) -> bool:
         """Tests if an integer is in the equivalence class.

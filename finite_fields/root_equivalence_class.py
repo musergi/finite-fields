@@ -14,6 +14,10 @@ class RootEquivalenceClass(EquivalenceClass):
     def zero(self) -> 'EquivalenceClass':
         return self._field.zero
 
+    @property
+    def one(self) -> 'EquivalenceClass':
+        return self._field.one
+
     def __contains__(self, element: int) -> bool:
         return element % self._field.characteristic == self._class_repr
 

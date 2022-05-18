@@ -16,6 +16,10 @@ class Polynomial:
     def degree(self) -> int:
         return len(self) - 1
 
+    @property
+    def is_monic(self) -> bool:
+        return self.coefficients[-1].is_one
+
     def __len__(self) -> int:
         return len(self.coefficients)
 
