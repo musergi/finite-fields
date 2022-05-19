@@ -12,14 +12,6 @@ class GaloisField(Collection):
     implementations. It also presents a series of properties that the
     subclasses should implement. It provides a default implementation for some
     methods.
-
-    As can be seen it inherits from collection this poses the following
-    restrictions. It must have a len in this case the cardinality, it must be
-    iterable, and it must be able to test containability. It is a design
-    decision not to make it a Sequence as order is not ensured.
-
-    What does this class add to the Collection class. It adds the properties:
-    characteristic, dimension, cardinality, zero and one.
     """
 
     @abstractmethod
